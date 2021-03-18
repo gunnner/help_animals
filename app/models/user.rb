@@ -10,9 +10,9 @@ class User < ApplicationRecord
                        can_edit_users
                        can_add_and_remove_animals
                        can_see_users_details
-                       can_edit_enimals
+                       can_edit_animals
                        can_create_animals_requests
                        can_close_animals_request
-                       can_see_animals_details ], _default: 'can_see_animals_details'
+                       can_see_animals_details], _default: 'can_see_animals_details'
 
 end

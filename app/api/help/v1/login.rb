@@ -14,7 +14,7 @@ module Help
           payload = { user_id: user.id }
           token = JWT.encode payload, nil, 'none'
 
-          {token: token}
+          { token: token }
         end
 
         desc 'Check login'
@@ -26,7 +26,6 @@ module Help
           user = User.find(user_data['user_id'])
           user
         end
-
       end
     end
   end
