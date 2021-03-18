@@ -28,7 +28,6 @@ module Help
           desc 'Update a specific animal'
           params { use :update }
           patch do
-            binding.pry
             animal = Animal.find(params[:animal_id])
             animal.update(declared_params)
           end
