@@ -37,5 +37,4 @@ ActiveAdmin.register Animal do
     end
     f.actions
   end
-
 end
