@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :email, :login, :phone1, :phone2, :permissions
+  permit_params :email, :login, :phone1, :phone2, :permissions, :password, :name
 
   index do
     selectable_column
@@ -20,12 +20,12 @@ ActiveAdmin.register User do
     f.inputs do
       f.input :email
       f.input :login
+      f.input :password
+      f.input :name
       f.input :phone1
       f.input :phone2
       f.input :permissions
-      f.input :created_at
     end
     f.actions
   end
-
 end
