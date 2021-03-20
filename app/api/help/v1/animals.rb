@@ -7,21 +7,21 @@ class Help::V1::Animals < Grape::API
     desc 'Return the list of animals'
     get do
       animal = Animal.all
-      present animal, with: Help::Entities::Animals
+      present animal, with: Help::Entities::IAdminAnimalDetailsGetResponse
     end
 
     desc 'Create a new animal'
     params { use :create }
     post do
       animal = Animal.create!(declared_params)
-      present animal, with: Help::Entities::Animals
+      present animal, with: Help::Entities::IAdminAnimalDetailsPostPatchRequest
     end
 
     route_param :animal_id do
       desc 'Return a specific animal'
       get do
         animal = Animal.find(params[:animal_id])
-        present animal, with: Help::Entities::Animals
+        present animal, with: Help::Entities::IAdminAnimalDetailsGetResponse
       end
 
       desc 'Update a specific animal'
