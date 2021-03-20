@@ -1,0 +1,36 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - bin/*
+    - db/schema.rb
+    - db/migrate/*.rb
+    - config/**/*
+    - test/**/*.rb
+Documentation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 30
+Metrics/BlockLength:
+  Exclude:
+    - app/api/**/*
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/LambdaCall:
+  EnforcedStyle: braces
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+  SupportedStyles:
+    - nested
+    - compact
+Layout/LineLength:
+  Max: 150
+Layout/HashAlignment:
+  EnforcedHashRocketStyle:
+    - key
+    - table
+  EnforcedColonStyle:
+    - key
+    - table
+  EnforcedLastArgumentHashStyle: ignore_implicit

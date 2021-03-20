@@ -12,8 +12,8 @@ module Help::Helpers::AnimalsParams
     requires :sterilization, coerce: Boolean
     requires :animal_has_family, coerce: Boolean
     requires :responsible_person, type: String, allow_blank: false
-    optional :images_attributes, type: Array do
-      requires :img_url, type: String, allow_blank: false
+    optional :image_attributes, type: Hash do
+      requires :file, type: File, allow_blank: false
     end
   end
 
@@ -28,8 +28,8 @@ module Help::Helpers::AnimalsParams
     optional :sterilization, coerce: Boolean
     optional :animal_has_family, coerce: Boolean
     optional :responsible_person, type: String
-    optional :images_attributes, type: Array do
-      requires :img_url, type: String, allow_blank: false
+    optional :image_attributes, type: Hash do
+      requires :file, type: File, allow_blank: false
     end
   end
 end
