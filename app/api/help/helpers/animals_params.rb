@@ -2,8 +2,8 @@ module Help::Helpers::AnimalsParams
   extend Grape::API::Helpers
 
   params :create do
-    optional :name, type: String
-    requires :breed, type: String, allow_blank: false
+    optional :name, type: String, desc: 'Name of animal to create'
+    requires :breed, type: String, allow_blank: false, desc: 'Breed of an animal'
     requires :sex, type: String, allow_blank: false
     requires :color, type: String, allow_blank: false
     optional :features, type: String
@@ -21,7 +21,7 @@ module Help::Helpers::AnimalsParams
   end
 
   params :update do
-    optional :name, type: String
+    optional :name, type: String, desc: 'Name of an animal'
     optional :breed, type: String
     optional :sex, type: String
     optional :color, type: String
