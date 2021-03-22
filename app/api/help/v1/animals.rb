@@ -1,24 +1,23 @@
 class Help::V1::Animals < Grape::API
+    include Grape::Kaminari
 
   helpers Help::Helpers::General,
-          Help::Helpers::AnimalsParams
+          Help::Helpers::AnimalsParams,
+          Help::Helpers::Pagination
 
   namespace :animals do
-    desc 'Return the list of animals',
+    desc 'Return a paginated list of animals',
       is_array: true,
       http_codes: [
         { code: 200, message: 'get Animals', model: Help::Entities::IAdminAnimalDetailsGetResponse },
         { code: 422, message: 'AnimalsOutError', model: Help::Entities::APIError }
         ]
-    # params do
-    #   use :pagination, per_page: 10, max_per_page: 20, offset: 5
-    # end    
+
+    paginate per_page: 10
+    
     get do
-      animal = Animal.all
-      present :total_page, 10
-      present :per_page, 10
+      paginate animal = Animal.page(page).per(per_page)
       present :animal, animal, with: Help::Entities::IAdminAnimalDetailsGetResponse
-      # paginate(animal)
     end
 
     desc 'Create a new animal' do

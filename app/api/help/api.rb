@@ -1,9 +1,7 @@
 require 'grape-swagger'
-require 'grape'
 
 module Help
   class API < Grape::API
-    # include Grape::Kaminari
 
     before do
       header['Access-Control-Allow-Origin'] = '*'
@@ -13,8 +11,6 @@ module Help
     version 'v1', using: :path
     format :json
     prefix :api
-
-
 
     class Grape::Middleware::Error
       def error_message(code, text)
@@ -46,6 +42,7 @@ module Help
     mount Help::V1::Animals
     mount Help::V1::Login
 
-    add_swagger_documentation
+    add_swagger_documentation schemes:
+                                - "http"                      
   end
 end
