@@ -3,5 +3,5 @@ class Animal < ApplicationRecord
   accepts_nested_attributes_for :image
 
   validates_presence_of :breed, :sex, :color, :responsible_person
-  validates_inclusion_of :complex_vaccination, :rabies_vaccination, :sterilization, :animal_has_family, in: [true, false]
+  validates_inclusion_of :complex_vaccination, :rabies_vaccination, :sterilization, :animal_has_family, :show_in_gallery, in: [true, false]
 end
