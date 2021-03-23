@@ -1,23 +1,28 @@
 class Help::V1::Animals < Grape::API
-    include Grape::Kaminari
+  include Grape::Kaminari
 
   helpers Help::Helpers::General,
+          Help::Helpers::Auth,
           Help::Helpers::AnimalsParams,
           Help::Helpers::Pagination
 
+  before do
+    current_user
+  end
+
   namespace :animals do
     desc 'Return a paginated list of animals',
-      is_array: true,
-      http_codes: [
-        { code: 200, message: 'get Animals', model: Help::Entities::IAdminAnimalDetailsGetResponse },
-        { code: 422, message: 'AnimalsOutError', model: Help::Entities::APIError }
-        ]
+         is_array: true,
+         http_codes: [
+           { code: 200, message: 'get Animals', model: Help::Entities::IAdminAnimalDetailsGetResponse },
+           { code: 422, message: 'AnimalsOutError', model: Help::Entities::APIError }
+         ]
 
     paginate per_page: 10
-    
+
     get do
       paginate animal = Animal.page(page).per(per_page)
-      present :animal, animal, with: Help::Entities::IAdminAnimalDetailsGetResponse
+      present animal, with: Help::Entities::IAdminAnimalDetailsGetResponse
     end
 
     desc 'Create a new animal' do
@@ -25,8 +30,8 @@ class Help::V1::Animals < Grape::API
         { code: 201, message: 'Animal created' },
         { code: 422, message: 'Validation Errors', model: Help::Entities::APIError }
       ]
-      end
-    
+    end
+
     params { use :create }
     post do
       animal = Animal.create!(declared_params)
