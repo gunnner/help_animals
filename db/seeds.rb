@@ -14,15 +14,19 @@
 #                      email: "email#{Time.now.to_i}@email.com",
 #                      permissions: 7)
 
-# animal = Animal.create!(breed: 'Chau-chau',
+# 50.times do |i|
+# animal = Animal.create!(name: "Murzik #{i+1}",
+# 												breed: 'cat',
 #                         sex: 'female',
 #                         color: 'ginger',
 #                         features: 'Loudly',
-#                         img_url: 'https://i.pinimg.com/originals/a4/89/92/a4899299a5061e4b24061840c8111b92.jpg',
-#                         age: 1.5,
+#                         age: 3.5,
 #                         complex_vaccination: true,
 #                         rabies_vaccination: true,
 #                         sterilization: false,
 #                         animal_has_family: false,
-#                         responsible_person: 'none')
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+#                         responsible_person: 'smb',
+#                         show_in_gallery: false,
+#                         edited_by: 'admin')
+# end
+# AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

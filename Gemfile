@@ -22,10 +22,18 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# CORS
+gem 'rack-cors'
+
 # API with Grape
 gem 'grape'
 gem 'grape-entity'
 gem 'grape-swagger'
+gem 'grape-swagger-entity', '~> 0.3'
+gem 'grape-swagger-representable', '~> 0.2'
+gem 'grape-kaminari'
+
+gem 'kaminari'
 
 # Admin panel
 gem 'activeadmin'
