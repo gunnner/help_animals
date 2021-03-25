@@ -28,10 +28,10 @@ gem 'rack-cors'
 # API with Grape
 gem 'grape'
 gem 'grape-entity'
+gem 'grape-kaminari'
 gem 'grape-swagger'
 gem 'grape-swagger-entity', '~> 0.3'
 gem 'grape-swagger-representable', '~> 0.2'
-gem 'grape-kaminari'
 
 gem 'kaminari'
 
@@ -51,6 +51,7 @@ gem 'carrierwave'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
+  gem 'faker'
   gem 'pry-rails'
 end
 
