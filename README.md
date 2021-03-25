@@ -1,7 +1,7 @@
 ## To use this application you should do the following steps:
 ### preparation:
 
-1. Clone repository: `git clone https://github.com/NoxVail/timezone-api`
+1. Clone repository: `git clone https://github.com/gunnner/help_animals.git`
 2. Install `docker` and `docker-compose`
 3. Create a `.env` file and fill it according to `.env.example`
 4. Build the app: `docker-compose build`
