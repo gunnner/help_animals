@@ -11,7 +11,7 @@ class Help::V1::Login < Grape::API
     post do
       user = User.authenticate(params[:email], params[:password])
       iat = Time.now.to_i
-      exp = Time.now.to_i + 4 * 3600
+      exp = 24.hours.from_now.to_i
 
       exp_payload = { user_id: user.id, iat: iat, exp: exp }
       token = JWT.encode exp_payload, HMAC_SECRET, 'HS256'
