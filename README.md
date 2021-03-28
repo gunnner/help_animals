@@ -3,7 +3,7 @@
 
 1. Clone repository: `git clone https://github.com/gunnner/help_animals.git`
 2. Install `docker` and `docker-compose`
-3. Create a `.env` file and fill it according to `.env.example`</br>For `JWT_TOKEN` you can use any string, but for convenience might get it with one click here: https://replit.com/@IhorBohdan/SubstantialFumblingCodeview
+3. Create a `.env` file and fill it according to `.env.example`</br>For `JWT_SECRET` you can use any string, but for convenience might get it with one click here: https://replit.com/@IhorBohdan/SubstantialFumblingCodeview
 4. Build the app: `docker-compose build`
 5. Create databases with `docker-compose run --rm app rails db:create`
 6. Migrate created database with `docker-compose run --rm app rails db:migrate`
