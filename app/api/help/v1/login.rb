@@ -1,15 +1,22 @@
 class Help::V1::Login < Grape::API
   HMAC_SECRET = ENV.fetch('JWT_SECRET').freeze
 
+  helpers Help::Helpers::General
+
   namespace :login do
     desc 'Log in'
     params do
-      requires :email, type: String
+      optional :email, type: String, allow_blank: false, regexp: User::VALID_EMAIL
+      optional :login, type: String, allow_blank: false
       requires :password, type: String
+
+      at_least_one_of :email, :login
     end
 
     post do
-      user = User.authenticate(params[:email], params[:password])
+      user = User.authenticate(*declared_params.values)
+      error!('invalid authentication data') unless user
+
       iat = Time.now.to_i
       exp = 24.hours.from_now.to_i
 
