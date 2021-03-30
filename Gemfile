@@ -43,6 +43,11 @@ gem 'devise'
 gem 'jwt'
 gem 'sorcery'
 
+# Roles
+gem 'cancancan'
+gem 'grape-cancan'
+gem 'rolify'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'carrierwave'

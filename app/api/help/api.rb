@@ -43,6 +43,6 @@ module Help
     mount Help::V1::Login
 
     add_swagger_documentation schemes:
-                                - "http"                      
+                                - 'http'
   end
 end
