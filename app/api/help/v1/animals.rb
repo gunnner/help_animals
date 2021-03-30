@@ -14,7 +14,7 @@ class Help::V1::Animals < Grape::API
     desc 'Return a paginated list of animals',
          is_array: true,
          http_codes: [
-           { code: 200, message: 'get Animals', model: Help::Entities::IAdminAnimalDetailsGetResponse },
+           { code: 200, message: 'get Animals', model: Help::Entities::AnimalDetails },
            { code: 422, message: 'AnimalsOutError', model: Help::Entities::APIError }
          ]
 
@@ -22,7 +22,7 @@ class Help::V1::Animals < Grape::API
 
     get do
       paginate animal = Animal.page(page).per(per_page)
-      present animal, with: Help::Entities::IAdminAnimalDetailsGetResponse
+      present animal, with: Help::Entities::AnimalDetails
     end
 
     desc 'Create a new animal' do
@@ -35,7 +35,7 @@ class Help::V1::Animals < Grape::API
     params { use :create }
     post do
       animal = Animal.create!(declared_params)
-      present animal, with: Help::Entities::IAdminAnimalDetailsPostPatchRequest
+      present animal, with: Help::Entities::AnimalImage
     end
 
     route_param :animal_id do
@@ -46,7 +46,7 @@ class Help::V1::Animals < Grape::API
       end
       get do
         animal = Animal.find(params[:animal_id])
-        present animal, with: Help::Entities::IAdminAnimalDetailsGetResponse
+        present animal, with: Help::Entities::AnimalDetails
       end
 
       desc 'Update a specific animal' do
