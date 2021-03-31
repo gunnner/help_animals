@@ -1,4 +1,4 @@
-class Help::Entities::IAdminAnimalDetailsGetResponse < Help::Entities::IAdminAnimalDetailsBase
+class Help::Entities::AnimalDetails < Help::Entities::AnimalDetailsBase
   with_options(expose_nil: false) do
     expose :id, documentation: { type: String, desc: 'identity of a resource' }
     expose :image, using: Help::Entities::Images do |instance|

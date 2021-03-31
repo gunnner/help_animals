@@ -24,11 +24,11 @@ module Help
     end
 
     rescue_from ActiveRecord::RecordNotFound do |e|
-      rack_response(error_message(404, 'not found'), 404)
+      rack_response(error_message(404, e.message), 404)
     end
 
     rescue_from Grape::Exceptions::ValidationErrors do |e|
-      rack_response(error_message(20, e.message), e.status)
+      rack_response(error_message(400, e.message), e.status)
     end
 
     rescue_from :all do |e|

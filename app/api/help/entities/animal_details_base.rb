@@ -1,4 +1,4 @@
-class Help::Entities::IAdminAnimalDetailsBase < Grape::Entity
+class Help::Entities::AnimalDetailsBase < Grape::Entity
   with_options(expose_nil: false) do
     expose :name, documentation: { type: String, desc: 'name of the animal' }
     expose :breed, documentation: { type: String, desc: 'breed of the animal' }
@@ -10,7 +10,7 @@ class Help::Entities::IAdminAnimalDetailsBase < Grape::Entity
     expose :rabies_vaccination, as: :rabiesVaccination, documentation: { type: 'boolean', desc: 'presence of rabies vaccination of the animal' }
     expose :sterilization, documentation: { type: 'boolean', desc: 'is the animal sterilized?' }
     expose :animal_has_family, as: :animalHasFamily, documentation: { type: 'boolean', desc: 'is the animal adopted?' }
-    expose :responsible_person, as: :resposiblePerson, documentation: { type: String, desc: 'The person responsible for the animal' }
+    expose :responsible_person, as: :responsiblePerson, documentation: { type: String, desc: 'The person responsible for the animal' }
     expose :show_in_gallery, as: :showInGallery, documentation: { type: 'boolean', desc: 'will a photo of the animal be displayed?' }
   end
 end
