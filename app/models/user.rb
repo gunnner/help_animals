@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   after_create :assign_default_role
 
-  accepts_nested_attributes_for :role
+  accepts_nested_attributes_for :roles
 
   validates :login, uniqueness: true, presence: true
   validates :email, uniqueness: true, format: { with: VALID_EMAIL }, presence: true
