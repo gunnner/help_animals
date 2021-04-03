@@ -1,4 +1,4 @@
-class Help::V1::Animals < Grape::API
+class Help::V1::AnimalsAdmin < Grape::API
   include Grape::Kaminari
 
   helpers Help::Helpers::General,
@@ -10,15 +10,15 @@ class Help::V1::Animals < Grape::API
     current_user
   end
 
-  namespace :animals do
+  namespace :animals_admin do
     desc 'Return a paginated list of animals',
          is_array: true,
          http_codes: [
-           { code: 200, message: 'get Animals', model: Help::Entities::AnimalDetails },
+           { code: 200, message: 'get AnimalsAdmin', model: Help::Entities::AnimalDetails },
            { code: 422, message: 'AnimalsOutError', model: Help::Entities::APIError }
          ]
 
-    paginate per_page: 10
+    paginate per_page: 2
 
     get do
       paginate animal = Animal.page(page).per(per_page)

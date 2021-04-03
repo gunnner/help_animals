@@ -39,8 +39,9 @@ module Help
       end
     end
 
-    mount Help::V1::Animals
+    mount Help::V1::AnimalsAdmin
     mount Help::V1::Login
+    mount Help::V1::Users
 
     add_swagger_documentation schemes:
                                 - 'http'
