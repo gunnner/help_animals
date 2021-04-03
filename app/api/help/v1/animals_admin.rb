@@ -18,7 +18,7 @@ class Help::V1::AnimalsAdmin < Grape::API
            { code: 422, message: 'AnimalsOutError', model: Help::Entities::APIError }
          ]
 
-    paginate per_page: 2
+    paginate per_page: 10
 
     get do
       paginate animal = Animal.page(page).per(per_page)
