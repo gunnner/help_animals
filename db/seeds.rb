@@ -5,15 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-# user = User.create!(login: "Animalover#{Time.now.to_i}",
-#                      name: "Ilon#{Time.now.to_i}",
-#                      phone1: rand(10**10).to_s,
-#                      phone2: rand(10**10).to_s,
-#                      password: "password#{Time.now.to_i}",
-#                      email: "email#{Time.now.to_i}@email.com",
-#                      permissions: 7)
-
+# 50.times do |i|
+#   User.create!(login: "Animalover#{Time.now.to_i + i}",
+#                        name: "Ilon#{Time.now.to_i + i}",
+#                        phone1: rand(10**10).to_s,
+#                        phone2: rand(10**10).to_s,
+#                        password: "password#{Time.now.to_i + i}",
+#                        email: "email#{Time.now.to_i + i}@email.com")
+# end
 # 50.times do |i|
 # animal = Animal.create!(name: "Murzik #{i+1}",
 # 												breed: 'cat',
