@@ -1,6 +1,6 @@
 ActiveAdmin.register Animal do
   permit_params :name, :breed, :sex, :age, :color, :features, :complex_vaccination, :rabies_vaccination, :sterilization, :animal_has_family,
-                :responsible_person, :show_in_gallery, :edited_by
+                :responsible_person, :show_in_gallery, :edited_by, image_attributes: %i[id file imageable_type imageable_id]
 
   index do
     selectable_column
@@ -17,6 +17,7 @@ ActiveAdmin.register Animal do
     column :animal_has_family
     column :responsible_person
     column :show_in_gallery
+    column :image
     column :edited_by
     column :created_at
     actions
@@ -40,6 +41,9 @@ ActiveAdmin.register Animal do
       f.input :responsible_person
       f.input :show_in_gallery
       f.input :edited_by
+      f.inputs 'Image', for: [:image, f.object.image || f.object.build_image] do |fi|
+        fi.input :file
+      end
     end
     f.actions
   end

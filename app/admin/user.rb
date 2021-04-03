@@ -8,7 +8,7 @@ ActiveAdmin.register User do
     column :login
     column :phone1
     column :phone2
-    column :permissions
+    column 'Role', :roles
     column :created_at
     actions
   end
@@ -24,7 +24,7 @@ ActiveAdmin.register User do
       f.input :name
       f.input :phone1
       f.input :phone2
-      f.input :roles, as: :check_boxes, multiple: true, collection: Role.all
+      f.input :roles, as: :radio, collection: Role.all
     end
     f.actions
   end
