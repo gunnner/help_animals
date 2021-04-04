@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :email, :login, :phone1, :phone2, :permissions, :password, :name
+  permit_params :email, :login, :phone1, :phone2, :password, :name, roles_attributes: %i[id name resource_type resource_id], role_ids: []
 
   index do
     selectable_column
@@ -8,7 +8,7 @@ ActiveAdmin.register User do
     column :login
     column :phone1
     column :phone2
-    column :permissions
+    column 'Role', :roles
     column :created_at
     actions
   end
@@ -24,8 +24,29 @@ ActiveAdmin.register User do
       f.input :name
       f.input :phone1
       f.input :phone2
-      f.input :permissions
+      f.input :roles, as: :check_boxes, multiple: true, collection: Role.all
     end
     f.actions
+  end
+
+  controller do
+    def update
+      remove_params
+
+      if params[:user][:role_ids].empty?
+        redirect_to request.referrer, flash: { error: 'Roles can`t be blank' }
+      else
+        super
+      end
+    end
+
+    def remove_params
+      if params[:user][:password].blank?
+        params[:user].tap do |user|
+          user.delete 'password'
+        end
+      end
+      params[:user][:role_ids].delete ''
+    end
   end
 end

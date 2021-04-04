@@ -9,6 +9,6 @@ class Help::Entities::AnimalDetailsBase < Grape::Entity
   expose :rabies_vaccination, as: :rabiesVaccination, documentation: { type: 'boolean', desc: 'presence of rabies vaccination of the animal' }
   expose :sterilization, documentation: { type: 'boolean', desc: 'is the animal sterilized?' }
   expose :animal_has_family, as: :animalHasFamily, documentation: { type: 'boolean', desc: 'is the animal adopted?' }
-  expose :responsible_person, as: :responsiblePerson, documentation: { type: String, desc: 'The person responsible for the animal' }
+  expose :responsible_person, as: :responsiblePerson, documentation: { type: String, desc: 'the person responsible for the animal' }
   expose :show_in_gallery, as: :showInGallery, documentation: { type: 'boolean', desc: 'will a photo of the animal be displayed?' }
 end

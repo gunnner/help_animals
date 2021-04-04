@@ -43,6 +43,14 @@ gem 'devise'
 gem 'jwt'
 gem 'sorcery'
 
+# Roles
+gem 'cancancan'
+gem 'grape-cancan'
+gem 'rolify'
+
+# nil for db empty values
+gem 'nilify_blanks'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'carrierwave'
