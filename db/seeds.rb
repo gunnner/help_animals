@@ -10,7 +10,7 @@
 #                        name: "Ilon#{Time.now.to_i + i}",
 #                        phone1: rand(10**10).to_s,
 #                        phone2: rand(10**10).to_s,
-#                        password: "password#{Time.now.to_i + i}",
+#                        password: "password",
 #                        email: "email#{Time.now.to_i + i}@email.com")
 # end
 # 50.times do |i|

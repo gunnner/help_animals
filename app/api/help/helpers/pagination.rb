@@ -4,6 +4,6 @@ module Help::Helpers::Pagination
   end
 
   def per_page
-    per_page ||= params[:per_page] || 10
+    per_page ||= params[:per_page] || 20
   end
 end

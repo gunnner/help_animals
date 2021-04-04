@@ -32,7 +32,7 @@ ActiveAdmin.register Animal do
       f.input :breed
       f.input :sex
       f.input :age
-      f.input :color
+      f.input :color, as: String
       f.input :features
       f.input :complex_vaccination
       f.input :rabies_vaccination

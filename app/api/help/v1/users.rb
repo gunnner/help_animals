@@ -12,7 +12,7 @@ class Help::V1::Users < Grape::API
   namespace :users do
     desc 'Return a paginated list of users'
 
-    paginate per_page: 10
+    paginate per_page: 20
 
     get do
       paginate users = User.page(page).per(per_page)
