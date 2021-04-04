@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_30_210624) do
+ActiveRecord::Schema.define(version: 2021_04_04_185315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 2021_03_30_210624) do
     t.string "sex"
     t.string "color"
     t.string "features"
-    t.string "img_url"
     t.float "age"
     t.boolean "complex_vaccination", null: false
     t.boolean "rabies_vaccination", null: false
@@ -85,7 +84,6 @@ ActiveRecord::Schema.define(version: 2021_03_30_210624) do
     t.string "phone1"
     t.string "phone2"
     t.string "email"
-    t.integer "permissions"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "crypted_password"
