@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   validates :login, uniqueness: true, presence: true
   validates :email, uniqueness: true, format: { with: VALID_EMAIL }, presence: true
-  validates :password, length: { minimum: 8 }, presence: true
+  validates :password, length: { minimum: 8 }, presence: true, on: :create
 
   enum permissions: %i[can_add_and_remove_users
                        can_edit_users
@@ -21,6 +21,6 @@ class User < ApplicationRecord
                        can_see_animals_details], _default: 'can_see_animals_details'
 
   def assign_default_role
-    add_role(:user) if roles.blank?
+    add_role(:admin) if roles.blank?
   end
 end
