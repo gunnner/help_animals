@@ -35,7 +35,7 @@ class Help::V1::AnimalsAdmin < Grape::API
     params { use :create }
     post do
       animal = Animal.create!(declared_params)
-      present animal, with: Help::Entities::AnimalImage
+      present animal, with: Help::Entities::AnimalDetails
     end
 
     route_param :animal_id do
