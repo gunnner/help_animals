@@ -42,6 +42,7 @@ module Help
     mount Help::V1::AnimalsAdmin
     mount Help::V1::Login
     mount Help::V1::Users
+    mount Help::V1::Animals
 
     add_swagger_documentation schemes:
                                 - 'http'
