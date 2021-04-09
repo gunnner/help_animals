@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   rolify
   authenticates_with_sorcery!
+  has_many :requests, dependent: :destroy
   VALID_EMAIL = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   after_create :assign_default_role
