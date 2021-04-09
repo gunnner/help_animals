@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_04_185315) do
+ActiveRecord::Schema.define(version: 2021_04_09_164705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,17 @@ ActiveRecord::Schema.define(version: 2021_04_04_185315) do
     t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable"
   end
 
+  create_table "requests", force: :cascade do |t|
+    t.string "address"
+    t.datetime "opened_date"
+    t.datetime "closed_date"
+    t.bigint "user_closed_id"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_requests_on_user_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -99,4 +110,5 @@ ActiveRecord::Schema.define(version: 2021_04_04_185315) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "requests", "users"
 end

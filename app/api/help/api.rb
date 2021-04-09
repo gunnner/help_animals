@@ -55,6 +55,8 @@ module Help
     mount Help::V1::Login
     mount Help::V1::Users
     mount Help::V1::Animals
+    mount Help::V1::OpenedRequests
+    mount Help::V1::ClosedRequests
 
     add_swagger_documentation schemes:
                                 - 'http'
