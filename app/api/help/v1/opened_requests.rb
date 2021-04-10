@@ -13,8 +13,10 @@ class Help::V1::OpenedRequests < Grape::API
     paginate per_page: 20
 
     get do
-      paginate opened_request = Request.page(page).per(per_page)
-      present opened_request.where(closed_date: nil).or(opened_request.where(user_closed_id: nil)), with: Help::Entities::Request
+      all_requests = Request.all
+      filtered_requests = all_requests.where(closed_date: nil).or(all_requests.where(user_closed_id: nil))
+      paginate opened_requests = filtered_requests.page(page).per(per_page)
+      present opened_requests, with: Help::Entities::Request
     end
 
     desc 'Open a new request'
@@ -29,7 +31,6 @@ class Help::V1::OpenedRequests < Grape::API
         user_id: current_user.id
       })
       present open_request, with: Help::Entities::Request
-
     end
 
     route_param :request_id do
@@ -42,7 +43,7 @@ class Help::V1::OpenedRequests < Grape::API
 
       desc 'Update(close) a specific request'
 
-      patch do 
+      patch do
         opened_request = Request.find(params[:request_id])
         opened_request.update({
           closed_date: DateTime.now,

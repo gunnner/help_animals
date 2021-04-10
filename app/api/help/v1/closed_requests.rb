@@ -13,8 +13,10 @@ class Help::V1::ClosedRequests < Grape::API
     paginate per_page: 20
 
     get do
-      paginate closed_request = Request.page(page).per(per_page)
-      present closed_request.where.not(closed_date: nil).or(closed_request.where.not(user_closed_id: nil)), with: Help::Entities::Request
+      all_requests = Request.all
+      filtered_requests = all_requests.where.not(closed_date: nil).or(all_requests.where.not(user_closed_id: nil))
+      paginate closed_requests = filtered_requests.page(page).per(per_page)
+      present closed_requests, with: Help::Entities::Request
     end
 
     desc 'Open a new request'
@@ -29,7 +31,6 @@ class Help::V1::ClosedRequests < Grape::API
         user_id: current_user.id
       })
       present open_request, with: Help::Entities::Request
-
     end
 
     route_param :request_id do
