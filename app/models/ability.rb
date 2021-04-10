@@ -4,14 +4,33 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    # Define abilities for the passed in user here. For example:
-    #
-    #   user ||= User.new # guest user (not logged in)
-    if user.is_admin?
-      can :manage, :all
-    else
-      can :read, :all
+    alias_action :create, :read, :update, :destroy, to: :crud
+
+    return unless user&.active?
+
+    user.roles.each do |role|
+      send "#{role.name}_permissions"
     end
+  end
+
+  def animal_manager_permissions
+    can :read, %i[closed_requests open_requests]
+    can :crud, :animals
+  end
+
+  def request_manager_permissions
+    can :read, :animals
+    can :crud, %i[closed_requests open_requests]
+  end
+
+  def manager_permissions
+    animal_manager_permissions
+    request_manager_permissions
+  end
+
+  def admin_permissions
+    can :manage, :all
+  end
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.
@@ -30,5 +49,4 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-  end
 end

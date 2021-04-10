@@ -8,6 +8,7 @@ class Help::V1::AnimalsAdmin < Grape::API
 
   before do
     current_user
+    authorize! :read, :animals
   end
 
   namespace :animals_admin do
@@ -34,6 +35,7 @@ class Help::V1::AnimalsAdmin < Grape::API
 
     params { use :create }
     post do
+      authorize! :create, :animals
       animal = Animal.create!(declared_params)
       present animal, with: Help::Entities::AnimalDetails
     end
@@ -56,12 +58,14 @@ class Help::V1::AnimalsAdmin < Grape::API
       end
       params { use :update }
       patch do
+        authorize! :update, :animals
         animal = Animal.find(params[:animal_id])
         animal.update(declared_params)
       end
 
       desc 'Delete a specific animal'
       delete do
+        authorize! :destroy, :animals
         Animal.find(params[:animal_id]).destroy
       end
     end

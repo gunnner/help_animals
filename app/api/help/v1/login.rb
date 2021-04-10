@@ -33,7 +33,7 @@ class Help::V1::Login < Grape::API
     get do
       user_data, = JWT.decode params[:token], HMAC_SECRET, true, { algorithm: 'HS256' }
       user = User.find(user_data['user_id'])
-      user
+      present user, with: Help::Entities::PermissionsInfo
     end
   end
 end

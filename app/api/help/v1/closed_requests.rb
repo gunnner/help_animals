@@ -6,6 +6,7 @@ class Help::V1::ClosedRequests < Grape::API
 
   before do
     current_user
+    authorize! :crud, :closed_requests
   end
 
   namespace 'closed-requests' do
@@ -26,10 +27,10 @@ class Help::V1::ClosedRequests < Grape::API
 
     post do
       open_request = Request.create!({
-        address: params[:address],
-        opened_date: DateTime.now,
-        user_id: current_user.id
-      })
+                                       address: params[:address],
+                                       opened_date: DateTime.now,
+                                       user_id: current_user.id
+                                     })
       present open_request, with: Help::Entities::Request
     end
 
