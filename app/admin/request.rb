@@ -1,5 +1,5 @@
  ActiveAdmin.register Request do
-  permit_params :address, :opened_date, :user_id
+  permit_params :address, :opened_date, :closed_date, :user_id, :user_closed_id
 
   index do
     selectable_column
