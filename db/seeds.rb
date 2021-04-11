@@ -36,6 +36,6 @@ end
 
 admin_create unless Rails.env.production?
 
-%w[peasant animal_manager request_manager manager admin].each do |role|
+%w[animal_manager request_manager manager admin].each do |role|
   Role.find_or_create_by(name: role)
 end
