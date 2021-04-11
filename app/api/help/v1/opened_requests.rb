@@ -6,6 +6,7 @@ class Help::V1::OpenedRequests < Grape::API
 
   before do
     current_user
+    authorize! :crud, :opened_requests
   end
 
   namespace 'opened-requests' do
@@ -26,10 +27,10 @@ class Help::V1::OpenedRequests < Grape::API
 
     post do
       open_request = Request.create!({
-        address: params[:address],
-        opened_date: DateTime.now,
-        user_id: current_user.id
-      })
+                                       address: params[:address],
+                                       opened_date: DateTime.now,
+                                       user_id: current_user.id
+                                     })
       present open_request, with: Help::Entities::Request
     end
 
@@ -46,9 +47,9 @@ class Help::V1::OpenedRequests < Grape::API
       patch do
         opened_request = Request.find(params[:request_id])
         opened_request.update({
-          closed_date: DateTime.now,
-          user_closed_id: current_user.id
-        })
+                                closed_date: DateTime.now,
+                                user_closed_id: current_user.id
+                              })
       end
     end
   end

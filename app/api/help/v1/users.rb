@@ -7,6 +7,7 @@ class Help::V1::Users < Grape::API
 
   before do
     current_user
+    authorize! :crud, :users
   end
 
   namespace :users do

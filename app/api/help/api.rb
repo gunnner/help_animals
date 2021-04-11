@@ -33,10 +33,8 @@ module Help
       rack_response(error_message(400, e.message), e.status)
     end
 
-    included do
-      rescue_from CanCan::AccessDenied do
-        rack_response(error_message(403, 'access denied'), 403)
-      end
+    rescue_from CanCan::AccessDenied do
+      rack_response(error_message(403, 'access denied'), 403)
     end
 
     rescue_from JWT::DecodeError do

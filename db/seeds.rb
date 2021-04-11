@@ -28,5 +28,12 @@
 #                         show_in_gallery: false,
 #                         edited_by: 'admin')
 # end
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
-Role.create!(name: 'admin')
+if Rails.env.development?
+  AdminUser.create_with(email: 'admin@example.com',
+                        password: 'password',
+                        password_confirmation: 'password').find_or_create_by(email: 'admin@example.com')
+end
+
+%w[peasant animal_manager request_manager manager admin].each do |role|
+  Role.find_or_create_by(name: role)
+end

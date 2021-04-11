@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :email, :login, :phone1, :phone2, :password, :name, roles_attributes: %i[id name resource_type resource_id], role_ids: []
+  permit_params :email, :login, :phone1, :phone2, :password, :name, :active, roles_attributes: %i[id name resource_type resource_id], role_ids: []
 
   index do
     selectable_column
@@ -8,6 +8,7 @@ ActiveAdmin.register User do
     column :login
     column :phone1
     column :phone2
+    column :active
     column 'Role', :roles
     column :created_at
     actions
@@ -24,6 +25,7 @@ ActiveAdmin.register User do
       f.input :name
       f.input :phone1
       f.input :phone2
+      f.input :active
       f.input :roles, as: :check_boxes, multiple: true, collection: Role.all
     end
     f.actions
