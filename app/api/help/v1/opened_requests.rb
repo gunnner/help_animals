@@ -6,7 +6,7 @@ class Help::V1::OpenedRequests < Grape::API
 
   before do
     current_user
-    authorize! :crud, :opened_requests
+    authorize! :read, :opened_requests
   end
 
   namespace 'opened-requests' do
@@ -26,6 +26,7 @@ class Help::V1::OpenedRequests < Grape::API
     end
 
     post do
+      authorize! :create, :opened_requests
       open_request = Request.create!({
                                        address: params[:address],
                                        opened_date: DateTime.now,
@@ -45,6 +46,7 @@ class Help::V1::OpenedRequests < Grape::API
       desc 'Update(close) a specific request'
 
       patch do
+        authorize! :update, :opened_requests
         opened_request = Request.find(params[:request_id])
         opened_request.update({
                                 closed_date: DateTime.now,
