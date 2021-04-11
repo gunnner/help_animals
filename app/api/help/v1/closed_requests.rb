@@ -6,7 +6,7 @@ class Help::V1::ClosedRequests < Grape::API
 
   before do
     current_user
-    authorize! :crud, :closed_requests
+    authorize! :read, :closed_requests
   end
 
   namespace 'closed-requests' do
@@ -26,6 +26,7 @@ class Help::V1::ClosedRequests < Grape::API
     end
 
     post do
+      authorize! :create, :closed_requests
       open_request = Request.create!({
                                        address: params[:address],
                                        opened_date: DateTime.now,
@@ -44,6 +45,7 @@ class Help::V1::ClosedRequests < Grape::API
 
       desc 'Delete a specific request'
       delete do
+        authorize! :destroy, :closed_requests
         Request.find(params[:request_id]).destroy
       end
     end
