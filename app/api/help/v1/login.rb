@@ -1,7 +1,7 @@
 class Help::V1::Login < Grape::API
   HMAC_SECRET = ENV.fetch('JWT_SECRET').freeze
 
-  helpers Help::Helpers::General
+  helpers Help::Helpers::General, Help::Helpers::Auth
 
   namespace :login do
     desc 'Log in'
@@ -27,13 +27,8 @@ class Help::V1::Login < Grape::API
     end
 
     desc 'Check login'
-    params do
-      requires :token, type: String
-    end
     get do
-      user_data, = JWT.decode params[:token], HMAC_SECRET, true, { algorithm: 'HS256' }
-      user = User.find(user_data['user_id'])
-      present user, with: Help::Entities::PermissionsInfo
+      present current_user, with: Help::Entities::PermissionsInfo
     end
   end
 end
