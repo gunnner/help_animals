@@ -36,11 +36,15 @@ class Help::V1::OpenedRequests < Grape::API
     end
 
     route_param :request_id do
-      desc 'Return a specific request'
+      desc 'Return a specific opened request'
 
       get do
         opened_request = Request.find(params[:request_id])
-        present opened_request, with: Help::Entities::Request
+        if opened_request.closed_date.nil? || opened_request.user_closed_id.nil?
+          present opened_request, with: Help::Entities::Request
+        else
+          error!(error: { error_code: 404, message: 'not found' })
+        end
       end
 
       desc 'Update(close) a specific request'

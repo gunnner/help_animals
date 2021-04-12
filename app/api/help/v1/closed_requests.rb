@@ -36,11 +36,15 @@ class Help::V1::ClosedRequests < Grape::API
     end
 
     route_param :request_id do
-      desc 'Return a specific request'
+      desc 'Return a specific closed request'
 
       get do
         closed_request = Request.find(params[:request_id])
-        present closed_request, with: Help::Entities::Request
+        if !(closed_request.closed_date.nil? || closed_request.user_closed_id.nil?)
+          present closed_request, with: Help::Entities::Request
+        else
+          error!(error: { error_code: 404, message: 'not found' })
+        end
       end
 
       desc 'Delete a specific request'
