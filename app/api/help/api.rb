@@ -25,8 +25,8 @@ module Help
       end
     end
 
-    rescue_from ActiveRecord::RecordNotFound do |e|
-      rack_response(error_message(404, e.message), 404)
+    rescue_from ActiveRecord::RecordNotFound do
+      rack_response(error_message(404, 'not found'), 404)
     end
 
     rescue_from Grape::Exceptions::ValidationErrors do |e|
@@ -39,6 +39,10 @@ module Help
 
     rescue_from JWT::DecodeError do
       rack_response(error_message(401, 'invalid token'), 401)
+    end
+
+    rescue_from Grape::Exceptions::MethodNotAllowed do
+      rack_response(error_message(405, 'not allowed'), 405)
     end
 
     rescue_from :all do |e|
