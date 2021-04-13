@@ -9,7 +9,8 @@ class Help::V1::Animals < Grape::API
     paginate per_page: 20
 
     get do
-      paginate animal = Animal.page(page).per(per_page)
+      filtered_animal = Animal.where(show_in_gallery: true)
+      paginate animal = filtered_animal.page(page).per(per_page)
       present animal, with: Help::Entities::AnimalDetails
     end
 
