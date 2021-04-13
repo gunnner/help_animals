@@ -15,7 +15,7 @@ class Help::V1::Login < Grape::API
 
     post do
       user = User.authenticate(*declared_params.values)
-      error!('invalid authentication data') unless user
+      error!(error: { error_code: 401, message: 'invalid authentication data' }) unless user
 
       iat = Time.now.to_i
       exp = 24.hours.from_now.to_i

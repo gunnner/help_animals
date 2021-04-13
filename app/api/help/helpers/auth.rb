@@ -1,13 +1,16 @@
 module Help::Helpers::Auth
-
   def current_user
     return @current_user if @current_user
 
-    token = headers['Authorization'].split.last
-    user = user(token)
-    error!('user not found') unless user
-
-    @current_user = user
+    token = headers['Authorization']
+    if token.present?
+      token = token.split.last
+      user = user(token)
+      error!('user not found') unless user
+      @current_user = user
+    else
+      error!(error: { error_code: 400, message: 'token is missing' })
+    end
   end
 
   private
