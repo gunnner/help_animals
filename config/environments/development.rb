@@ -76,4 +76,5 @@ Rails.application.configure do
 
   # config.hosts << "help-animals.hopto.org"
   config.hosts << "help-animals.pp.ua"
+  config.hosts << /application\.local/
 end
