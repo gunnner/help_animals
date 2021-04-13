@@ -52,10 +52,14 @@ class Help::V1::OpenedRequests < Grape::API
       patch do
         authorize! :update, :opened_requests
         opened_request = Request.find(params[:request_id])
-        opened_request.update({
-                                closed_date: DateTime.now,
-                                user_closed_id: current_user.id
-                              })
+        if opened_request.closed_date.nil? || opened_request.user_closed_id.nil?
+          opened_request.update({
+                                  closed_date: DateTime.now,
+                                  user_closed_id: current_user.id
+                                })
+        else
+          error!(error: { error_code: 404, message: 'not found' })
+        end
       end
     end
   end
