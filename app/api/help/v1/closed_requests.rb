@@ -40,7 +40,7 @@ class Help::V1::ClosedRequests < Grape::API
 
       get do
         closed_request = Request.find(params[:request_id])
-        if !(closed_request.closed_date.nil? || closed_request.user_closed_id.nil?)
+        if closed_request.closed_date.present? || closed_request.user_closed_id.present?
           present closed_request, with: Help::Entities::Request
         else
           error!(error: { error_code: 404, message: 'not found' })
@@ -50,7 +50,12 @@ class Help::V1::ClosedRequests < Grape::API
       desc 'Delete a specific request'
       delete do
         authorize! :destroy, :closed_requests
-        Request.find(params[:request_id]).destroy
+        delete_request = Request.find(params[:request_id])
+        if delete_request.closed_date.present? || delete_request.user_closed_id.present?
+          delete_request.destroy
+        else
+          error!(error: { error_code: 404, message: 'not found' })
+        end
       end
     end
   end
