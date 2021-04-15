@@ -17,7 +17,7 @@ class Help::V1::Users < Grape::API
 
     get do
       paginate users = User.page(page).per(per_page)
-      present users, with: Help::Entities::UserDetails
+      present users, with: Help::Entities::PermissionsInfo
     end
 
     route_param :user_id do
