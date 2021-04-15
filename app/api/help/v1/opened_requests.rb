@@ -2,7 +2,8 @@ class Help::V1::OpenedRequests < Grape::API
   include Grape::Kaminari
 
   helpers Help::Helpers::Auth,
-          Help::Helpers::Pagination
+          Help::Helpers::Pagination,
+          Help::Helpers::Errors
 
   before do
     current_user
@@ -40,11 +41,9 @@ class Help::V1::OpenedRequests < Grape::API
 
       get do
         opened_request = Request.find(params[:request_id])
-        if opened_request.closed_date.nil? || opened_request.user_closed_id.nil?
-          present opened_request, with: Help::Entities::Request
-        else
-          error!(error: { error_code: 404, message: 'not found' })
-        end
+        return not_found_error if opened_request.closed_date || opened_request.user_closed_id
+
+        present opened_request, with: Help::Entities::Request
       end
 
       desc 'Update(close) a specific request'
@@ -52,14 +51,12 @@ class Help::V1::OpenedRequests < Grape::API
       patch do
         authorize! :update, :opened_requests
         opened_request = Request.find(params[:request_id])
-        if opened_request.closed_date.nil? || opened_request.user_closed_id.nil?
-          opened_request.update({
-                                  closed_date: DateTime.now,
-                                  user_closed_id: current_user.id
-                                })
-        else
-          error!(error: { error_code: 404, message: 'not found' })
-        end
+        return not_found_error unless opened_request.closed_date.nil? || opened_request.user_closed_id.nil?
+
+        opened_request.update({
+                                closed_date: DateTime.now,
+                                user_closed_id: current_user.id
+                              })
       end
     end
   end

@@ -21,10 +21,10 @@ class Help::V1::Users < Grape::API
     end
 
     route_param :user_id do
-      desc 'Return a specific animal'
+      desc 'Return a specific user'
       get do
         user = User.find(params[:user_id])
-        present user, with: Help::Entities::UserDetails
+        present user, with: Help::Entities::PermissionsInfo
       end
     end
   end

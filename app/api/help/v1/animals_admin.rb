@@ -4,7 +4,8 @@ class Help::V1::AnimalsAdmin < Grape::API
   helpers Help::Helpers::General,
           Help::Helpers::Auth,
           Help::Helpers::AnimalsParams,
-          Help::Helpers::Pagination
+          Help::Helpers::Pagination,
+          Help::Helpers::Errors
 
   before do
     current_user
@@ -61,6 +62,9 @@ class Help::V1::AnimalsAdmin < Grape::API
         authorize! :update, :animals
         animal = Animal.find(params[:animal_id])
         animal.update(declared_params)
+        return validation_error unless animal.update(declared_params)
+
+        animal.update(edited_by: current_user.id) if animal.save
       end
 
       desc 'Delete a specific animal'
