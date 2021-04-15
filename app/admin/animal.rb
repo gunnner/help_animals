@@ -40,7 +40,6 @@ ActiveAdmin.register Animal do
       f.input :animal_has_family
       f.input :responsible_person
       f.input :show_in_gallery
-      f.input :edited_by
       f.inputs 'Image', for: [:image, f.object.image || f.object.build_image] do |fi|
         fi.input :file
       end

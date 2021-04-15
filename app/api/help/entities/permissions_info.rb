@@ -1,4 +1,4 @@
-class Help::Entities::PermissionsInfo < Grape::Entity
+class Help::Entities::PermissionsInfo < Help::Entities::UserDetails
 
   def current_ability(instance)
     @current_ability ||= ::Ability.new(instance)
@@ -15,6 +15,6 @@ class Help::Entities::PermissionsInfo < Grape::Entity
     current_ability(instance).can? :crud, :animals
   end
   expose :requests_crud do |instance|
-    current_ability(instance).can?(:crud, :closed_requests && :open_requests)
+    current_ability(instance).can?(:crud, :closed_requests && :opened_requests)
   end
 end

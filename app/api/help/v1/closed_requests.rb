@@ -2,7 +2,8 @@ class Help::V1::ClosedRequests < Grape::API
   include Grape::Kaminari
 
   helpers Help::Helpers::Auth,
-          Help::Helpers::Pagination
+          Help::Helpers::Pagination,
+          Help::Helpers::Errors
 
   before do
     current_user
@@ -40,22 +41,18 @@ class Help::V1::ClosedRequests < Grape::API
 
       get do
         closed_request = Request.find(params[:request_id])
-        if closed_request.closed_date.present? || closed_request.user_closed_id.present?
-          present closed_request, with: Help::Entities::Request
-        else
-          error!(error: { error_code: 404, message: 'not found' })
-        end
+        return not_found_error unless closed_request.closed_date || closed_request.user_closed_id
+
+        present closed_request, with: Help::Entities::Request
       end
 
-      desc 'Delete a specific request'
+      desc 'Delete a specific closed request'
       delete do
         authorize! :destroy, :closed_requests
         delete_request = Request.find(params[:request_id])
-        if delete_request.closed_date.present? || delete_request.user_closed_id.present?
-          delete_request.destroy
-        else
-          error!(error: { error_code: 404, message: 'not found' })
-        end
+        return not_found_error unless delete_request.closed_date || delete_request.user_closed_id
+
+        delete_request.destroy
       end
     end
   end

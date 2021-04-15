@@ -45,6 +45,10 @@ module Help
       rack_response(error_message(405, 'not allowed'), 405)
     end
 
+    rescue_from ActiveRecord::RecordInvalid do |e|
+      rack_response(error_message(422, e.message), 422)
+    end
+
     rescue_from :all do |e|
       if Rails.env.development?
         raise e

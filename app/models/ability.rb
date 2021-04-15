@@ -14,13 +14,13 @@ class Ability
   end
 
   def animal_manager_permissions
-    can :read, %i[closed_requests open_requests]
+    can :read, %i[closed_requests opened_requests]
     can :crud, :animals
   end
 
   def request_manager_permissions
     can :read, :animals
-    can :crud, %i[closed_requests open_requests]
+    can :crud, %i[closed_requests opened_requests]
   end
 
   def manager_permissions
