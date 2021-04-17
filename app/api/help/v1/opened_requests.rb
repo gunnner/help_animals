@@ -31,7 +31,8 @@ class Help::V1::OpenedRequests < Grape::API
       open_request = Request.create!({
                                        address: params[:address],
                                        opened_date: DateTime.now,
-                                       user_id: current_user.id
+                                       user_id: current_user.id,
+                                       user_name_open: current_user.name
                                      })
       present open_request, with: Help::Entities::Request
     end
@@ -55,7 +56,8 @@ class Help::V1::OpenedRequests < Grape::API
 
         opened_request.update({
                                 closed_date: DateTime.now,
-                                user_closed_id: current_user.id
+                                user_closed_id: current_user.id,
+                                user_name_close: current_user.name
                               })
       end
     end

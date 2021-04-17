@@ -31,7 +31,8 @@ class Help::V1::ClosedRequests < Grape::API
       open_request = Request.create!({
                                        address: params[:address],
                                        opened_date: DateTime.now,
-                                       user_id: current_user.id
+                                       user_id: current_user.id,
+                                       user_name_open: current_user.name
                                      })
       present open_request, with: Help::Entities::Request
     end
