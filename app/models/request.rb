@@ -1,5 +1,5 @@
 class Request < ApplicationRecord
   belongs_to :user
 
-  validates :address, length: { minimum: 10 }, presence: true
+  validates :address, length: { maximum: 500 }, presence: true
 end
