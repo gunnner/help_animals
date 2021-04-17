@@ -64,7 +64,7 @@ class Help::V1::AnimalsAdmin < Grape::API
         animal.update(declared_params)
         return validation_error unless animal.update(declared_params)
 
-        animal.update(edited_by: current_user.id) if animal.save
+        animal.update(edited_by: { id: current_user.id, user_name: current_user.name }.to_json) if animal.save
       end
 
       desc 'Delete a specific animal'
