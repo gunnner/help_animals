@@ -49,12 +49,8 @@ module Help
       rack_response(error_message(422, e.message), 422)
     end
 
-    rescue_from :all do |e|
-      if Rails.env.development?
-        raise e
-      else
-        rack_response(error_message(500, 'internal server error'), 500)
-      end
+    rescue_from :all do
+      rack_response(error_message(500, 'internal server error'), 500)
     end
 
     mount Help::V1::AnimalsAdmin

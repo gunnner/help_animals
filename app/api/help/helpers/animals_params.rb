@@ -2,12 +2,12 @@ module Help::Helpers::AnimalsParams
   extend Grape::API::Helpers
 
   params :create do
-    optional :name, type: String, allow_blank: false, desc: 'name of animal to create'
+    optional :name, type: String, desc: 'name of animal to create'
     requires :breed, type: String, allow_blank: false, desc: 'breed of an animal'
     requires :sex, type: String, allow_blank: false, desc: 'gender of an animal'
     requires :color, type: String, allow_blank: false, desc: 'color of the animal'
     optional :features, type: String, allow_blank: false, desc: 'features of the animal'
-    optional :age, type: Float, allow_blank: false, desc: 'age of the animal'
+    requires :age, type: Float, allow_blank: false, desc: 'age of the animal'
     requires :complex_vaccination, coerce: Boolean, allow_blank: false, desc: 'presence of complex vaccination of the animal'
     requires :rabies_vaccination, coerce: Boolean, allow_blank: false, desc: 'presence of rabies vaccination of the animal'
     requires :sterilization, coerce: Boolean, allow_blank: false, desc: 'is the animal sterilized?'
