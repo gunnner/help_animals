@@ -38,4 +38,26 @@ module Help::Helpers::AnimalsParams
       requires :file, type: File, allow_blank: false
     end
   end
+
+  params :sort_filter do
+    optional :filter_params, type: Hash do
+      optional :age, type: Array
+      optional :features, type: String
+      optional :complex_vaccination, type: Boolean
+      optional :rabies_vaccination, type: Boolean
+      optional :sterilization, type: Boolean
+      optional :animal_has_family, type: Boolean
+      optional :responsible_person, type: String
+    end
+    optional :sort_params, type: Hash do
+      optional :id, type: Integer
+      optional :age, type: Float
+      optional :features, type: String
+      optional :complex_vaccination, type: Boolean
+      optional :rabies_vaccination, type: Boolean
+      optional :sterilization, type: Boolean
+      optional :animal_has_family, type: Boolean
+      optional :responsible_person, type: String
+    end
+  end
 end
