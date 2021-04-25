@@ -5,7 +5,8 @@ class Help::V1::AnimalsAdmin < Grape::API
           Help::Helpers::Auth,
           Help::Helpers::AnimalsParams,
           Help::Helpers::Pagination,
-          Help::Helpers::Errors
+          Help::Helpers::Errors,
+          Help::Helpers::SortFilterAnimals
 
   before do
     current_user
@@ -22,8 +23,10 @@ class Help::V1::AnimalsAdmin < Grape::API
 
     paginate per_page: 20
 
-    get do
-      paginate animal = Animal.page(page).per(per_page)
+    params { use :sort_filter }
+    patch do
+      filtered_animal = Animal.where(filter_params).order(sort_params)
+      paginate animal = filtered_animal.page(page).per(per_page)
       present animal, with: Help::Entities::AnimalDetails
     end
 
