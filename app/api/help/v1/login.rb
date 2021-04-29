@@ -19,7 +19,15 @@ class Help::V1::Login < Grape::API
       user = User.find_by(email: params[:email])
       invalid_auth_data unless user
 
+      user.auth_token = SecureRandom.base64
+
       if user && user.authenticate(params[:password])
+
+        if params[:remember_me]
+          cookies[:auth_token] = { value: user.auth_token, expires: 4.weeks.from_now }
+        else
+          cookies[:auth_token] = user.auth_token
+        end
 
         iat = Time.now.to_i
         exp = 24.hours.from_now.to_i
@@ -36,6 +44,11 @@ class Help::V1::Login < Grape::API
     desc 'Check login'
     get do
       present current_user, with: Help::Entities::PermissionsInfo
+    end
+
+    desc 'Destroy session'
+    delete do
+      cookies.delete(:auth_token)
     end
   end
 end
