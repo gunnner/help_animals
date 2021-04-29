@@ -369,6 +369,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.4)
   cancancan
   capybara (>= 3.26)

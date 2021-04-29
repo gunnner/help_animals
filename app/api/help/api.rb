@@ -49,8 +49,8 @@ module Help
       rack_response(error_message(422, e.message), 422)
     end
 
-    rescue_from :all do
-      rack_response(error_message(500, 'internal server error'), 500)
+    rescue_from :all do |e|
+      rack_response(error_message(500, e.message), 500)
     end
 
     mount Help::V1::AnimalsAdmin
@@ -59,6 +59,8 @@ module Help
     mount Help::V1::Animals
     mount Help::V1::OpenedRequests
     mount Help::V1::ClosedRequests
+    mount Help::V1::Forgot
+    mount Help::V1::Reset
 
     add_swagger_documentation schemes:
                                 - 'http'
