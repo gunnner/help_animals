@@ -25,6 +25,9 @@ gem 'bcrypt', '~> 3.1.7'
 # CORS
 gem 'rack-cors'
 
+# env
+gem 'figaro'
+
 # API with Grape
 gem 'grape'
 gem 'grape-entity'
