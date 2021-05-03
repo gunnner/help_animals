@@ -39,3 +39,5 @@ yarn-debug.log*
 .ruby-gemset
 .env
 /public/uploads/
+# Ignore application configuration
+/config/application.yml
