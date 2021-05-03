@@ -1,8 +1,7 @@
 class Help::V1::Login < Grape::API
   HMAC_SECRET = ENV.fetch('JWT_SECRET').freeze
 
-  helpers Help::Helpers::General,
-          Help::Helpers::Auth,
+  helpers Help::Helpers::Auth,
           Help::Helpers::Errors
 
   namespace :login do
@@ -21,13 +20,10 @@ class Help::V1::Login < Grape::API
 
       user.auth_token = SecureRandom.base64
 
-      if user && user.authenticate(params[:password])
+      if user&.authenticate(params[:password])
 
-        if params[:remember_me]
-          cookies[:auth_token] = { value: user.auth_token, expires: 4.weeks.from_now }
-        else
-          cookies[:auth_token] = user.auth_token
-        end
+        cookies[:auth_token] = { value: user.auth_token, expires: 4.weeks.from_now } if params[:remember_me]
+        cookies[:auth_token] = user.auth_token unless params[:remember_me]
 
         iat = Time.now.to_i
         exp = 24.hours.from_now.to_i

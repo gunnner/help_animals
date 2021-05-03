@@ -41,7 +41,7 @@ class Help::V1::AnimalsAdmin < Grape::API
     post do
       authorize! :create, :animals
       animal = Animal.create!(declared_params)
-      present animal, with: Help::Entities::AnimalDetails
+      present animal, with: Help::Entities::UnexposeEditedBy
     end
 
     route_param :animal_id do
