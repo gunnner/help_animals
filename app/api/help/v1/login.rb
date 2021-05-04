@@ -2,8 +2,7 @@ class Help::V1::Login < Grape::API
   HMAC_SECRET = ENV.fetch('JWT_SECRET').freeze
 
   helpers Help::Helpers::Auth,
-          Help::Helpers::Errors,
-          Help::Helpers::General
+          Help::Helpers::Errors
 
   namespace :login do
     desc 'Log in'
@@ -16,8 +15,11 @@ class Help::V1::Login < Grape::API
     end
 
     post do
-      user = User.find_by(email: params[:email])&.authenticate(params[:password]) ||
-             User.find_by(login: params[:login])&.authenticate(params[:password])
+      email = params[:email].downcase if params[:email].present?
+      login = params[:login].downcase if params[:login].present?
+
+      user = User.find_by(email: email)&.authenticate(params[:password]) ||
+             User.find_by(login: login)&.authenticate(params[:password])
 
       invalid_auth_data unless user
 
