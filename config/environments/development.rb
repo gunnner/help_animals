@@ -41,15 +41,15 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = { from: ENV.fetch("MAIL_USERNAME").freeze }
+  config.action_mailer.default_options = { from: ENV["MAIL_USERNAME"] }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
     domain:               'myprojectdomain.com',
-    user_name:            ENV.fetch("MAIL_USERNAME").freeze,
-    password:             ENV.fetch("MAIL_PASSWORD").freeze,
+    user_name:            ENV["MAIL_USERNAME"],
+    password:             ENV["MAIL_PASSWORD"],
     authentication:       'plain',
     enable_starttls_auto: true
     }
