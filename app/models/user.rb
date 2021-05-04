@@ -15,6 +15,9 @@ class User < ApplicationRecord
   validates :phone1, length: { maximum: 25 }
   validates :phone2, length: { maximum: 25 }
 
+  before_save { self.email = email.downcase }
+  before_save { self.login = login.downcase }
+
   def assign_default_role
     add_role(:admin) if roles.blank?
   end
