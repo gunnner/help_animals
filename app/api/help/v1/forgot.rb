@@ -5,6 +5,10 @@ class Help::V1::Forgot < Grape::API
   namespace :forgot do
     desc 'forgot password'
 
+    params do
+      requires :email, type: String, allow_blank: false
+    end
+
     post do
       empty_email if params[:email].blank?
 

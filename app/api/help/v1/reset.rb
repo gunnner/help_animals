@@ -11,6 +11,8 @@ class Help::V1::Reset < Grape::API
         return pasword_length_error if params[:password].to_s.length < 8
 
         user.reset_password!(params[:password])
+
+        { token: token }
       else
         validation_error
       end
