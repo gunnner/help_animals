@@ -4,10 +4,9 @@ class Help::V1::Reset < Grape::API
 
   namespace :reset do
     post do
-      token = params[:token].to_s
-      user = User.find_by(reset_password_token: token)
+      user = User.find_by(reset_password_token: params[:token].to_s)
 
-      if user.present? && user.password_token_valid?
+      if user.present?
         return pasword_length_error if params[:password].to_s.length < 8
 
         user.reset_password!(params[:password])
