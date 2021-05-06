@@ -18,6 +18,7 @@ class Help::V1::Forgot < Grape::API
       if user.present?
         user.generate_password_token!
         UserMailer.password_reset(user).deliver_now
+        { message: 'successfully' }
       end
     end
   end
