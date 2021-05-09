@@ -26,8 +26,8 @@ class Help::V1::Login < Grape::API
       user.auth_token = SecureRandom.base64
 
       if user
-        cookies[:auth_token] = { value: user.auth_token, expires: 4.weeks.from_now } if params[:remember_me]
-        cookies[:auth_token] = user.auth_token unless params[:remember_me]
+        cookies[:auth_token] = { value: user.auth_token, expires: 4.weeks.from_now } if params[:remember_me] == true
+        cookies[:auth_token] = user.auth_token if params[:remember_me] == false
 
         iat = Time.now.to_i
         exp = 24.hours.from_now.to_i
